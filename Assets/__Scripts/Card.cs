@@ -13,7 +13,13 @@ public class Card : MonoBehaviour
     public List<GameObject> decoGOs = new List<GameObject>();
     public List<GameObject> pipGOs = new List<GameObject>();
     public GameObject back; 
-    public CardDefinition def; 
+    public CardDefinition def;
+
+    public bool faceUp
+    {
+        get    { return (!back.activeSelf); }
+        set    { back.SetActive(!value); }
+    }
 }
 
 [System.Serializable] 
