@@ -69,9 +69,9 @@ public class Card : MonoBehaviour
         set    { back.SetActive(!value); }
     }
 
-    virtual public void OnMouseUpAsButton()
+    virtual public void OnMouseDrag()
     {
-        print(name);
+        
     }
 }
 
