@@ -18,15 +18,20 @@ public class CardProspector : Card
     public int layoutID;
     public SlotDef slotDef;
 
-    private Vector3 archive0;
-    private int archive1;
+    private string archiveLayer;
+    private int archiveOrder;
+    private Vector3 archivePos;
+
     override public void OnMouseDrag()
     {
-        archive0 = this.transform.position;
-        archive1 = this.slotDef.layerID;
+        Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        archiveLayer = this.GetComponent<SpriteRenderer>().sortingLayerName;
+        archiveOrder = this.GetComponent<SpriteRenderer>().sortingOrder;
+        archivePos = this.transform.position;
 
-        this.slotDef.layerID = 5;
-        this.transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition);        
+        this.GetComponent<SpriteRenderer>().sortingLayerName = "Draw";
+        this.GetComponent<SpriteRenderer>().sortingOrder = 5;
+        this.transform.position = new Vector3(mousePos.x, mousePos.y, -10);        
     }
     public void OnMouseUp()
     {    
@@ -47,9 +52,16 @@ public class CardProspector : Card
             }
             else
             {
-                this.transform.position = archive0;
-                this.slotDef.layerID = archive1;
+                this.GetComponent<SpriteRenderer>().sortingLayerName = archiveLayer;
+                this.GetComponent<SpriteRenderer>().sortingOrder = archiveOrder;
+                this.transform.position = archivePos;
             }
+        }
+        else
+        {
+            this.GetComponent<SpriteRenderer>().sortingLayerName = archiveLayer;
+            this.GetComponent<SpriteRenderer>().sortingOrder = archiveOrder;
+            this.transform.position = archivePos;
         }
     }
 }
